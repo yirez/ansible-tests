@@ -1,0 +1,14 @@
+- name: Copy a new "copy-this.txt" file into place, backing up the original if it differs from the copied version
+  hosts: all
+  tasks:
+  - name: create directory with parent directories
+    file:
+      path: /opt/ansible-test1/ans/copyfile
+      state: directory
+  - copy:
+      src: copy-this.txt
+      dest: /opt/ansible-test1/ans/copyfile/haha.txt
+      owner: root
+      group: root
+      mode: '0644'
+      backup: yes
