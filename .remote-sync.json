@@ -1,0 +1,18 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "3.68.147.65",
+  "target": "/opt/ansible-test1/",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "ec2-user",
+  "keyfile": "E:\\GitRepos\\ansible-tests\\terraformec2.pem",
+  "watch": ["/ans/firstplaybook/testbook.yaml"],
+  "transport": "scp"
+}

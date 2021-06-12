@@ -1,5 +1,5 @@
 - name: playbook to ping all servers
   hosts: all
   tasks:
-  - name: Ping servers
+  - name: Ping servers sdqssssss
     ping:
