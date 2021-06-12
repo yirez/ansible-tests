@@ -38,25 +38,25 @@ resource "aws_eip" "eip_atarg2" {
 }
 
 resource "aws_eip_association" "eip_aterm" {
-  instance_id   = aws_instance.test_cluster_m1.id
+  instance_id   = aws_instance.ansible-terminal.id
   allocation_id = aws_eip.eip_aterm.id
 }
 resource "aws_eip_association" "eip_atarg1" {
-  instance_id   = aws_instance.target1.id
+  instance_id   = aws_instance.ansible-target1.id
   allocation_id = aws_eip.eip_atarg1.id
 }
 resource "aws_eip_association" "eip_atarg2" {
-  instance_id   = aws_instance.target2.id
+  instance_id   = aws_instance.ansible-target2.id
   allocation_id = aws_eip.eip_atarg2.id
 }
 ###########
 
-output "instance_test_cluster_w1_ip" {
+output "instance_ansible-target1_ip" {
+  value = aws_instance.ansible-target1.public_ip
+}
+output "instance_ansible-target2_ip" {
+  value = aws_instance.ansible-target2.public_ip
+}
+output "instance_ansible-terminal_ip" {
   value = aws_instance.ansible-terminal.public_ip
-}
-output "instance_test_cluster_w2_ip" {
-  value = aws_instance.test_cluster_w2.public_ip
-}
-output "instance_test_cluster_m1_ip" {
-  value = aws_instance.test_cluster_m1.public_ip
 }
