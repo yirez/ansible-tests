@@ -20,10 +20,14 @@
 
   - name: Ready epel repo
     command: amazon-linux-extras install epel -y
+    register: epel_ready
     when: ansible_os_family == "RedHat"
+  - name: Print return information from the previous task
+    debug:
+      var: epel_ready
   - name: Install {{item.name}} on Centos
     yum:
       name: "{{item.name}}"
       state: present
-    when: item.critical and ansible_os_family == "RedHat"
+    when: item.critical and ansible_os_family == "RedHat" and epel_ready is succeeded
     loop: "{{packages}}"
