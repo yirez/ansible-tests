@@ -1,0 +1,29 @@
+- name: Install nginx, apache and chrony on servers
+  hosts: all
+  vars:
+    packages:
+    - name: amazon-linux-extras
+      critical: true
+    - name: nginx
+      critical: true
+    - name: apache
+      critical: false
+    - name: chrony
+      critical: true
+  tasks:
+  - name: Install "{{item.name}}" on Ubuntu
+    apt:
+      name: "{{item.name}}"
+      state: present
+    when: item.critical and ansible_os_family == "Debian"
+    loop: "{{packages}}"
+
+  - name: Ready epel repo
+    command: amazon-linux-extras install epel -y
+    when: ansible_os_family == "RedHat"
+  - name: Install {{item.name}} on Centos
+    yum:
+      name: "{{item.name}}"
+      state: present
+    when: item.critical and ansible_os_family == "RedHat"
+    loop: "{{packages}}"
