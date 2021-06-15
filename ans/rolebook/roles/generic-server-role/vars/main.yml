@@ -1,0 +1,11 @@
+---
+# vars file for generic-server-role
+    packages:
+    - name: amazon-linux-extras
+      critical: true
+    - name: nginx
+      critical: true
+    - name: apache
+      critical: false
+    - name: chrony
+      critical: true

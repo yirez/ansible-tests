@@ -1,0 +1,4 @@
+- name: Install nginx, apache and chrony on servers
+  hosts: all
+  roles:
+  - generic-server-role

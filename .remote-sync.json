@@ -14,6 +14,8 @@
   "username": "ec2-user",
   "keyfile": "E:\\GitRepos\\ansible-tests\\terraformec2.pem",
   "watch": ["/ans/firstplaybook/testbook.yaml",
-  "/ans/copyfile/copybook.yaml"],
+  "/ans/copyfile/copybook.yaml",
+  "/ans/nginxbook/nginxbook.yaml",
+  "/ans/rolebook/rolebook.yaml"],
   "transport": "scp"
 }
