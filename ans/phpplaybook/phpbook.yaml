@@ -29,7 +29,7 @@
     loop: "{{packages}}"
     when: epel_ready is succeeded
 
-  - name: Enable service httpd, and make sure its started
+  - name: Enable services, and make sure they are started
     ansible.builtin.service:
       name: "{{item.name}}"
       state: started
