@@ -1,0 +1,75 @@
+- name: Playbook to get a php app up and running.
+  hosts: target2
+  vars:
+    packages:
+    - name: firewalld
+    - name: mariadb-server
+    - name: httpd
+    - name: git
+    - name: php
+    - name: php-mysql
+    - name: python
+    - name: MySQL-python
+
+    services:
+    - name: firewalld
+    - name: mariadb
+    - name: httpd
+  tasks:
+  - name: Ready epel repo
+    command: amazon-linux-extras install epel -y
+    register: epel_ready
+  - name: Print return information from the previous task
+    debug:
+      var: epel_ready
+
+  - name: Install {{item.name}} on Centos
+    yum:
+      name: "{{item.name}}"
+    loop: "{{packages}}"
+    when: epel_ready is succeeded
+
+  - name: Enable service httpd, and make sure its started
+    ansible.builtin.service:
+      name: "{{item.name}}"
+      state: started
+      enabled: yes
+    loop: "{{services}}"
+
+  - name: setup firewall rules for db
+    firewalld:
+      port: 3306/tcp
+      permanent: true
+      state: enabled
+
+  - name: setup firewall rules for httpd
+    firewalld:
+      port: 80/tcp
+      permanent: true
+      state: enabled
+
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: 'https://github.com/yirez/ansible-tests.git'
+      dest: /opt/app
+
+  - name: create directory with parent directories
+    file:
+      path: /var/www/html/phptest
+      state: directory
+  - name: Copy php files
+    copy:
+      src: /opt/app/ans/phpplaybook/
+      dest: /var/www/html/phptest
+      remote_src: yes
+
+  - name: create a new database
+    mysql_db: name=somedb state=present
+  - name: add sample data to database
+    mysql_db: name=somedb state=import target=/opt/app/ans/phpplaybook/init.sql
+
+  - name: Configure Database
+    shell: |
+        mysql -e "create user IF NOT EXISTS 'myuser'@'localhost' identified by 'somepass';"
+        mysql -e "grant all privileges on *.* to 'myuser'@'DBIP';"
+        mysql -e "flush privileges;"
