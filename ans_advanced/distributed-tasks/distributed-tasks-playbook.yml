@@ -1,0 +1,5 @@
+- name: Install db and web server on servers
+  hosts: all
+  tasks:
+  - include: tasks/install_db.yml
+  - include: tasks/install_web.yml

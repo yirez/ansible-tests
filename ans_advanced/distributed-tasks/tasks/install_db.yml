@@ -1,0 +1,4 @@
+- name: Install mariadb-server on Centos
+  yum:
+    name: mariadb-server
+    state: present

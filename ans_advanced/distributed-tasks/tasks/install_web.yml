@@ -1,0 +1,4 @@
+- name: Install httpd on Centos
+  yum:
+    name: httpd
+    state: present
