@@ -2,3 +2,4 @@
   async: 60  # start when?
   poll: 60 # retry interval
   register: command_result
+  #debugger: always

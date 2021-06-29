@@ -1,5 +1,6 @@
 - name: Run async command
   hosts: all
+  #strategy: debug
   tasks:
   - include: tasks/commandasync.yml
   - async_status: jid={{ command_result.ansible_job_id }}
