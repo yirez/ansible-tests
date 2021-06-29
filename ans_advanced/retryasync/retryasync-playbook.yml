@@ -1,0 +1,8 @@
+- name: Run async command
+  hosts: all
+  tasks:
+  - include: tasks/commandasync.yml
+  - async_status: jid={{ command_result.ansible_job_id }}
+    register: job_result
+    until: job_result.finished
+    retries: 10
