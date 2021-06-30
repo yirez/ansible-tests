@@ -7,3 +7,10 @@
     register: job_result
     until: job_result.finished
     retries: 10
+  - name: Panic task
+    command: /bin/inexistant_folder/null_command
+    register: result
+    ignore_errors: True
+    failed_when:
+      - '"ERROR" in result.stderr'
+      - result.rc == 2
