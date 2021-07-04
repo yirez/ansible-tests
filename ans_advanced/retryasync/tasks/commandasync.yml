@@ -1,5 +1,5 @@
 - command: echo "hello"
-  async: 60  # start when?
-  poll: 60 # retry interval
+  async: 10  # start when?
+  poll: 10 # retry interval
   register: command_result
   #debugger: always
