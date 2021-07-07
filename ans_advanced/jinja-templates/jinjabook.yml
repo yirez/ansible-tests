@@ -1,0 +1,12 @@
+- name: Run jinja templates
+  hosts: all
+  vars:
+    var_from_playbook: "this var is from playbook"
+  vars_files:
+    - vars/testvar.yml
+  tasks:
+  - command: echo "{{ var_from_playbook }}"
+    register: out
+  - debug: var=out.stdout_lines
+
+  - include: tasks/jinjatest.yml
